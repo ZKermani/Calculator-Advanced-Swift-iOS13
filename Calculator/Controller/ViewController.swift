@@ -30,6 +30,14 @@ class ViewController: UIViewController {
         
         //What should happen when a non-number button is pressed
         didFinishTyping = true
+        guard let symbol = sender.currentTitle else {
+            fatalError("Calc button does not have a title")
+        }
+        let calculatorLogic = CalculatorLogic(displayValue)
+        guard let result = calculatorLogic.calculate(symbol) else {
+            fatalError("Calc result is invalid")
+        }
+        displayLabel.text = result
     }
 
     
@@ -38,7 +46,6 @@ class ViewController: UIViewController {
         //What should happen when a number is entered into the keypad
         if didFinishTyping {
             displayLabel.text = sender.currentTitle
-            print(displayValue)
             didFinishTyping = false
         } else {
             guard let num = sender.currentTitle else {
