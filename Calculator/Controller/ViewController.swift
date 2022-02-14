@@ -24,20 +24,21 @@ class ViewController: UIViewController {
             displayLabel.text = String(newValue)
         }
     }
+    var calculatorLogic = CalculatorLogic()
     
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
         //What should happen when a non-number button is pressed
         didFinishTyping = true
+        calculatorLogic.setNumber(displayValue)
         guard let symbol = sender.currentTitle else {
             fatalError("Calc button does not have a title")
         }
-        let calculatorLogic = CalculatorLogic(displayValue)
-        guard let result = calculatorLogic.calculate(symbol) else {
-            fatalError("Calc result is invalid")
+                
+        if let result = calculatorLogic.calculate(symbol) {
+            displayLabel.text = result
         }
-        displayLabel.text = result
     }
 
     
